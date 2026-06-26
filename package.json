@@ -1,0 +1,13 @@
+{
+  "name": "firstcry-intellitots-root",
+  "version": "1.0.0",
+  "description": "Root workspace to start FirstCry Intellitots backend and frontend concurrently.",
+  "scripts": {
+    "start": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "npm --prefix backend start",
+    "frontend": "npm run --prefix frontend dev"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

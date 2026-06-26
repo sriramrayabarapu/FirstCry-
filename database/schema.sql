@@ -1,0 +1,128 @@
+-- Database Schema for FirstCry Intellitots
+
+CREATE TABLE IF NOT EXISTS admissions (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  child TEXT NOT NULL,
+  parent TEXT NOT NULL,
+  program TEXT NOT NULL,
+  status TEXT DEFAULT 'Pending',
+  date TEXT NOT NULL,
+  counsellor TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS classrooms (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL UNIQUE,
+  emoji TEXT,
+  capacity INTEGER NOT NULL,
+  filled INTEGER DEFAULT 0,
+  waitlist INTEGER DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS leads (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  child TEXT NOT NULL,
+  phone TEXT NOT NULL,
+  program TEXT NOT NULL,
+  status TEXT DEFAULT 'New',
+  priority TEXT DEFAULT 'cold',
+  date TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS enquiries (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  parent TEXT NOT NULL,
+  child TEXT NOT NULL,
+  age TEXT,
+  phone TEXT NOT NULL,
+  email TEXT,
+  program TEXT NOT NULL,
+  visit_date TEXT,
+  source TEXT DEFAULT 'Walk-in',
+  notes TEXT,
+  status TEXT DEFAULT 'New',
+  date TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS teachers (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  role TEXT NOT NULL,
+  exp TEXT NOT NULL,
+  classes INTEGER DEFAULT 0,
+  rating REAL DEFAULT 5.0
+);
+
+CREATE TABLE IF NOT EXISTS tours (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  parent TEXT NOT NULL,
+  date TEXT NOT NULL,
+  time TEXT NOT NULL,
+  program TEXT NOT NULL,
+  status TEXT DEFAULT 'Pending',
+  counsellor TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS fees (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  child TEXT NOT NULL,
+  program TEXT NOT NULL,
+  parent TEXT NOT NULL,
+  fee INTEGER NOT NULL,
+  paid INTEGER NOT NULL DEFAULT 0,
+  status TEXT DEFAULT 'Unpaid'
+);
+
+CREATE TABLE IF NOT EXISTS referrals (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL UNIQUE,
+  referrals INTEGER DEFAULT 0,
+  converted INTEGER DEFAULT 0,
+  savings TEXT DEFAULT '₹0',
+  status TEXT DEFAULT 'Bronze'
+);
+
+CREATE TABLE IF NOT EXISTS festivals (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL UNIQUE,
+  emoji TEXT,
+  date TEXT NOT NULL,
+  msg TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  role TEXT NOT NULL,
+  email TEXT NOT NULL UNIQUE,
+  login TEXT,
+  status TEXT DEFAULT 'Active'
+);
+
+CREATE TABLE IF NOT EXISTS prebooks (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  child TEXT NOT NULL,
+  program TEXT NOT NULL,
+  date TEXT NOT NULL,
+  payment TEXT DEFAULT 'Unpaid',
+  status TEXT DEFAULT 'Pending'
+);
+
+CREATE TABLE IF NOT EXISTS feedback (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  rating INTEGER DEFAULT 5,
+  comment TEXT,
+  date TEXT NOT NULL,
+  class_name TEXT,
+  teacher_rating INTEGER DEFAULT 5,
+  facility_rating INTEGER DEFAULT 5
+);
+
+CREATE TABLE IF NOT EXISTS announcements (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  line1 TEXT NOT NULL,
+  line2 TEXT NOT NULL,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

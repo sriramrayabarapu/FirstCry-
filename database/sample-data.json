@@ -1,0 +1,86 @@
+{
+  "admissions": [
+    {"child": "Aarohi Sharma", "parent": "Priya Sharma", "program": "Nursery", "status": "Confirmed", "date": "2 Jun 2025", "counsellor": "Priya K."},
+    {"child": "Dev Mehta", "parent": "Anil Mehta", "program": "LKG", "status": "Confirmed", "date": "5 Jun 2025", "counsellor": "Amit S."},
+    {"child": "Sia Gupta", "parent": "Rohit Gupta", "program": "Playgroup", "status": "Pending", "date": "8 Jun 2025", "counsellor": "Sunita R."},
+    {"child": "Krish Patel", "parent": "Meena Patel", "program": "UKG", "status": "Confirmed", "date": "10 Jun 2025", "counsellor": "Priya K."},
+    {"child": "Ananya Joshi", "parent": "Deepak Joshi", "program": "Daycare", "status": "Waitlisted", "date": "12 Jun 2025", "counsellor": "Rahul M."}
+  ],
+  "classrooms": [
+    {"name": "Playgroup", "emoji": "👶", "capacity": 30, "filled": 28, "waitlist": 5},
+    {"name": "Nursery", "emoji": "🌸", "capacity": 35, "filled": 31, "waitlist": 7},
+    {"name": "LKG", "emoji": "📚", "capacity": 40, "filled": 31, "waitlist": 4},
+    {"name": "UKG", "emoji": "🏫", "capacity": 45, "filled": 29, "waitlist": 0},
+    {"name": "Daycare", "emoji": "🌙", "capacity": 50, "filled": 28, "waitlist": 3},
+    {"name": "Toddler", "emoji": "🧸", "capacity": 20, "filled": 10, "waitlist": 0},
+    {"name": "After School", "emoji": "🎨", "capacity": 20, "filled": 10, "waitlist": 0}
+  ],
+  "leads": [
+    {"name": "Sunita Agarwal", "child": "Rohan", "phone": "98765 43210", "program": "LKG", "status": "Tour Booked", "priority": "hot", "date": "Today 10:00 AM"},
+    {"name": "Ravi Kumar", "child": "Tara", "phone": "87654 32109", "program": "Nursery", "status": "Follow-up Pending", "priority": "warm", "date": "Yesterday"},
+    {"name": "Meera Singh", "child": "Arjun", "phone": "76543 21098", "program": "Playgroup", "status": "New", "priority": "cold", "date": "14 Jun"},
+    {"name": "Pooja Desai", "child": "Isha", "phone": "65432 10987", "program": "UKG", "status": "Converted", "priority": "hot", "date": "12 Jun"},
+    {"name": "Amit Verma", "child": "Vihaan", "phone": "54321 09876", "program": "Daycare", "status": "Interested", "priority": "warm", "date": "11 Jun"},
+    {"name": "Nisha Pillai", "child": "Mia", "phone": "43210 98765", "program": "LKG", "status": "Tour Booked", "priority": "warm", "date": "10 Jun"},
+    {"name": "Suresh Nair", "child": "Karan", "phone": "32109 87654", "program": "Nursery", "status": "Lost", "priority": "cold", "date": "8 Jun"},
+    {"name": "Divya Iyer", "child": "Riya", "phone": "21098 76543", "program": "Playgroup", "status": "New", "priority": "hot", "date": "Today 2:00 PM"}
+  ],
+  "teachers": [
+    {"name": "Ms. Kavita Rao", "role": "Playgroup Teacher", "exp": "8 yrs", "classes": 30, "rating": 4.9},
+    {"name": "Ms. Deepa Shetty", "role": "Nursery Teacher", "exp": "6 yrs", "classes": 31, "rating": 4.8},
+    {"name": "Ms. Ananya Bose", "role": "LKG Teacher", "exp": "5 yrs", "classes": 31, "rating": 4.7},
+    {"name": "Mr. Sanjay Kumar", "role": "UKG Teacher", "exp": "10 yrs", "classes": 29, "rating": 4.9},
+    {"name": "Ms. Rekha Nair", "role": "Daycare Supervisor", "exp": "7 yrs", "classes": 28, "rating": 4.6},
+    {"name": "Ms. Priya Jain", "role": "Activity Coordinator", "exp": "4 yrs", "classes": 0, "rating": 4.8}
+  ],
+  "tours": [
+    {"parent": "Sunita Agarwal", "date": "15 Jun 2025", "time": "10:00 AM", "program": "LKG", "status": "Confirmed", "counsellor": "Priya K."},
+    {"parent": "Amit Nair", "date": "16 Jun 2025", "time": "11:00 AM", "program": "Nursery", "status": "Confirmed", "counsellor": "Amit S."},
+    {"parent": "Geeta Sharma", "date": "17 Jun 2025", "time": "12:00 PM", "program": "Playgroup", "status": "Pending", "counsellor": "Sunita R."},
+    {"parent": "Ramesh Patel", "date": "18 Jun 2025", "time": "10:00 AM", "program": "UKG", "status": "Confirmed", "counsellor": "Rahul M."},
+    {"parent": "Lakshmi Iyer", "date": "19 Jun 2025", "time": "3:00 PM", "program": "Daycare", "status": "Rescheduled", "counsellor": "Priya K."}
+  ],
+  "fees": [
+    {"child": "Aarohi Sharma", "program": "Nursery", "parent": "Priya Sharma", "fee": 14000, "paid": 14000, "status": "Paid"},
+    {"child": "Dev Mehta", "program": "LKG", "parent": "Anil Mehta", "fee": 16000, "paid": 8000, "status": "Partial"},
+    {"child": "Krish Patel", "program": "UKG", "parent": "Meena Patel", "fee": 18000, "paid": 0, "status": "Overdue"},
+    {"child": "Sia Gupta", "program": "Playgroup", "parent": "Rohit Gupta", "fee": 12000, "paid": 12000, "status": "Paid"},
+    {"child": "Riva Joshi", "program": "Daycare", "parent": "Deepak Joshi", "fee": 10000, "paid": 5000, "status": "Partial"}
+  ],
+  "referrals": [
+    {"name": "Priya Sharma", "referrals": 4, "converted": 3, "savings": "₹6,000", "status": "Gold"},
+    {"name": "Anil Mehta", "referrals": 2, "converted": 2, "savings": "₹4,000", "status": "Silver"},
+    {"name": "Sunita Roy", "referrals": 3, "converted": 1, "savings": "₹2,000", "status": "Bronze"},
+    {"name": "Ravi Iyer", "referrals": 1, "converted": 1, "savings": "₹2,000", "status": "Bronze"}
+  ],
+  "festivals": [
+    {"name": "Diwali", "emoji": "🪔", "date": "1 Nov 2025", "msg": "Happy Diwali! May this festival of lights bring joy to your family. — Intellitots Team"},
+    {"name": "New Year", "emoji": "🎆", "date": "1 Jan 2026", "msg": "Wishing you a sparkling New Year filled with learning and laughter!"},
+    {"name": "Christmas", "emoji": "🎄", "date": "25 Dec 2025", "msg": "Merry Christmas from our Intellitots family to yours! 🎅"},
+    {"name": "Sankranti", "emoji": "🪁", "date": "14 Jan 2026", "msg": "Happy Makar Sankranti! May your days be sweet as sesame & jaggery 🌞"}
+  ],
+  "users": [
+    {"name": "Aditi Roy", "role": "Centre Head", "email": "aditi@intellitots.in", "login": "Today 9:15 AM", "status": "Active"},
+    {"name": "Priya K.", "role": "Counsellor", "email": "priya@intellitots.in", "login": "Today 9:30 AM", "status": "Active"},
+    {"name": "Amit S.", "role": "Counsellor", "email": "amit@intellitots.in", "login": "Today 10:00 AM", "status": "Active"},
+    {"name": "Kavita Rao", "role": "Teacher", "email": "kavita@intellitots.in", "login": "Today 8:45 AM", "status": "Active"},
+    {"name": "Sanjay Kumar", "role": "Teacher", "email": "sanjay@intellitots.in", "login": "14 Jun 2025", "status": "Active"},
+    {"name": "Finance Admin", "role": "Accounts", "email": "accounts@intellitots.in", "login": "13 Jun 2025", "status": "Active"}
+  ],
+  "prebooks": [
+    {"child": "Mihir Joshi", "program": "LKG", "date": "10 Jun 2025", "payment": "Paid", "status": "Confirmed"},
+    {"child": "Asha Nair", "program": "Nursery", "date": "8 Jun 2025", "payment": "Paid", "status": "Pending"},
+    {"child": "Vivaan Shah", "program": "Playgroup", "date": "5 Jun 2025", "payment": "Partial", "status": "On Hold"}
+  ],
+  "feedback": [
+    {"name": "Sunita P.", "rating": 5, "comment": "Amazing teachers and beautiful environment!", "date": "10 Jun", "class_name": "Nursery", "teacher_rating": 5, "facility_rating": 5},
+    {"name": "Rahul M.", "rating": 4, "comment": "Great school, just wish the app had more updates.", "date": "8 Jun", "class_name": "LKG", "teacher_rating": 4, "facility_rating": 4},
+    {"name": "Kavya S.", "rating": 5, "comment": "My son loves going to school every single day. 🙏", "date": "5 Jun", "class_name": "Playgroup", "teacher_rating": 5, "facility_rating": 5}
+  ],
+  "announcements": [
+    {
+      "line1": "🍱 Lunch: Vegetable Khichdi + Raita | 🎨 Activity: Finger Painting",
+      "line2": "🎉 Event: Parents' Open Day — 4:00 PM | 📢 Notice: Diwali holiday on Nov 1st"
+    }
+  ]
+}
