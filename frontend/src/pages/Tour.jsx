@@ -64,6 +64,23 @@ export default function Tour({ onShowToast, portalMode }) {
     }
   };
 
+  const handleStatusChange = async (id, status) => {
+    try {
+      const res = await fetch(`/api/tours/${id}/status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status })
+      });
+      if (res.ok) {
+        onShowToast(`✅ Tour status updated to ${status}`);
+        loadTours();
+      }
+    } catch (e) {
+      console.error(e);
+      onShowToast('❌ Failed to update status');
+    }
+  };
+
   const handlePrevMonth = () => {
     if (currentMonth === 0) {
       setCurrentMonth(11);
@@ -268,9 +285,24 @@ export default function Tour({ onShowToast, portalMode }) {
                 <td>{t.time}</td>
                 <td><span className="badge badge-purple">{t.program}</span></td>
                 <td>
-                  <span className={`badge ${t.status === 'Confirmed' ? 'badge-success' : t.status === 'Rescheduled' ? 'badge-warning' : 'badge-info'}`}>
-                    {t.status}
-                  </span>
+                  {portalMode === 'public' ? (
+                    <span className={`badge ${t.status === 'Confirmed' ? 'badge-success' : t.status === 'Rescheduled' ? 'badge-warning' : t.status === 'Rejected' ? 'badge-gray' : 'badge-info'}`}>
+                      {t.status}
+                    </span>
+                  ) : (
+                    <select 
+                      className={`badge ${t.status === 'Confirmed' ? 'badge-success' : t.status === 'Rescheduled' ? 'badge-warning' : t.status === 'Rejected' ? 'badge-gray' : 'badge-info'}`}
+                      style={{ border: 'none', cursor: 'pointer', outline: 'none' }}
+                      value={t.status}
+                      onChange={(e) => handleStatusChange(t.id, e.target.value)}
+                    >
+                      <option value="Pending">Pending</option>
+                      <option value="Confirmed">Confirmed</option>
+                      <option value="Rescheduled">Rescheduled</option>
+                      <option value="Rejected">Rejected</option>
+                      <option value="Completed">Completed</option>
+                    </select>
+                  )}
                 </td>
                 <td>{t.counsellor}</td>
               </tr>

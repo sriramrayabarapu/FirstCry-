@@ -11,6 +11,10 @@ class TourModel {
       [parent, date, time, program, status || 'Pending', counsellor]
     );
   }
+
+  static updateStatus(id, status) {
+    return dbQuery.run('UPDATE tours SET status = ? WHERE id = ?', [status, id]);
+  }
 }
 
 module.exports = TourModel;

@@ -45,6 +45,21 @@ class TourController {
       next(err);
     }
   }
+
+  static async updateTourStatus(req, res, next) {
+    try {
+      const { id } = req.params;
+      const { status } = req.body;
+      if (!status) {
+        return res.status(400).json({ success: false, message: 'Status is required' });
+      }
+
+      await TourModel.updateStatus(id, status);
+      res.json({ success: true, message: `Tour status updated to ${status}` });
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = TourController;
