@@ -15,6 +15,8 @@ const feeRoutes = require('./routes/feeRoutes');
 const reportRoutes = require('./routes/reportRoutes');
 const tourRoutes = require('./routes/tourRoutes');
 
+const EnquiryModel = require('./models/Enquiry');
+
 const authMiddleware = require('./middleware/auth');
 const errorHandler = require('./middleware/errorHandler');
 
@@ -112,6 +114,21 @@ app.post('/api/prebooks', authMiddleware, upload.single('photo'), async (req, re
       'INSERT INTO prebooks (child, program, date, payment, status) VALUES (?, ?, ?, ?, ?)',
       [child, program, dateStr, 'Partial', 'Pending']
     );
+
+    // Also store it in enquiries for admin visibility
+    try {
+      await EnquiryModel.create({
+        parent,
+        child,
+        phone,
+        program,
+        source: 'Pre-book Web',
+        status: 'Pre-booked',
+        date: dateStr
+      });
+    } catch (e) {
+      console.error('Failed to store pre-book in enquiries:', e.message);
+    }
 
     // Send pre-booking simulated text with payment link
     try {

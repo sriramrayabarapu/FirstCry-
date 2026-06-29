@@ -113,17 +113,20 @@ export default function Enquiry({ onShowToast, portalMode }) {
                   <td>{r.child}</td>
                   <td><span className="badge badge-purple">{r.program}</span></td>
                   <td>{r.phone || '—'}</td>
-                  <td>
+                  <td style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                     <select 
+                      className={`badge ${r.status === 'New' ? 'badge-info' : r.status === 'Follow Up' ? 'badge-warning' : r.status === 'Confirmed' ? 'badge-success' : r.status === 'Pre-booked' ? 'badge-purple' : 'badge-gray'}`}
+                      style={{ border: 'none', outline: 'none', cursor: 'pointer' }}
                       value={r.status} 
                       onChange={(e) => handleStatusChange(r.id, e.target.value)}
-                      style={{ padding: '0.25rem', borderRadius: '4px', border: '1px solid #ccc' }}
                     >
                       <option value="New">New</option>
                       <option value="Follow Up">Follow Up</option>
+                      <option value="Pre-booked">Pre-booked</option>
                       <option value="Confirmed">Confirmed</option>
                       <option value="Rejected">Rejected</option>
                     </select>
+                    <button className="btn btn-outline btn-sm" style={{ padding: '2px 6px', fontSize: '10px' }} onClick={() => handleDelete(r.id)}>🗑️</button>
                   </td>
                   <td style={{ color: 'var(--muted)', fontSize: '12px' }}>{r.date}</td>
                 </tr>
