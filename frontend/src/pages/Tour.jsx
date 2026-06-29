@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export default function Tour({ onShowToast }) {
+export default function Tour({ onShowToast, portalMode }) {
   const [tours, setTours] = useState([]);
   const [parentName, setParentName] = useState('');
   const [phone, setPhone] = useState('');
@@ -184,7 +184,8 @@ export default function Tour({ onShowToast }) {
 
   return (
     <div id="page-tour" className="page active">
-      <div className="grid-2 section-gap">
+      {portalMode === 'public' && (
+        <div className="grid-2 section-gap">
         <div className="card">
           <div className="card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
             <div className="card-title">
@@ -244,6 +245,7 @@ export default function Tour({ onShowToast }) {
 
         {renderBookTourForm()}
       </div>
+      )}
 
       <div className="card">
         <div className="card-header"><div className="card-title">Upcoming Tours</div></div>

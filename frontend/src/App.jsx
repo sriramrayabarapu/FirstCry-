@@ -158,7 +158,7 @@ export default function App() {
       case 'enquiry':
         return <Enquiry onShowToast={triggerToast} portalMode={portalMode} />;
       case 'tour':
-        return <Tour onShowToast={triggerToast} />;
+        return <Tour onShowToast={triggerToast} portalMode={portalMode} />;
       case 'prebook':
         return <Prebook onShowToast={triggerToast} />;
       case 'teachers':
