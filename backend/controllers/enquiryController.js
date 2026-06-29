@@ -1,6 +1,9 @@
 const EnquiryModel = require('../models/Enquiry');
 const WhatsappService = require('../services/whatsappService');
 const EmailService = require('../services/emailService');
+const AdmissionModel = require('../models/Admission');
+const OccupancyModel = require('../models/Occupancy');
+const FeesModel = require('../models/Fees');
 
 class EnquiryController {
   static async getAllEnquiries(req, res, next) {
@@ -72,6 +75,34 @@ class EnquiryController {
       }
 
       await EnquiryModel.updateStatus(id, status);
+
+      if (status === 'Confirmed') {
+        const enquiry = await EnquiryModel.getById(id);
+        if (enquiry) {
+          const dateStr = new Date().toLocaleDateString('en-IN');
+          
+          await AdmissionModel.create({
+            child: enquiry.child,
+            parent: enquiry.parent,
+            program: enquiry.program,
+            status: 'Confirmed',
+            date: dateStr,
+            counsellor: 'Auto-assigned'
+          });
+
+          await OccupancyModel.incrementFilled(enquiry.program);
+
+          await FeesModel.create({
+            child: enquiry.child,
+            program: enquiry.program,
+            parent: enquiry.parent,
+            fee: 15000,
+            paid: 0,
+            status: 'Unpaid'
+          });
+        }
+      }
+
       res.json({ success: true, message: `Enquiry status updated to ${status}` });
     } catch (err) {
       next(err);
