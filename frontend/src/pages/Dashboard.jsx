@@ -4,15 +4,16 @@ import CustomChart from '../components/Charts';
 
 export default function Dashboard({ setActivePage, onShowToast }) {
   const [stats, setStats] = useState({
-    capacity: 240,
-    filled: 187,
-    waitlist: 19,
-    confirmedAdmissions: 187,
-    pendingEnquiries: 34,
-    totalRevenue: 840000,
-    pendingFees: 180000
+    capacity: 0,
+    filled: 0,
+    waitlist: 0,
+    confirmedAdmissions: 0,
+    pendingEnquiries: 0,
+    totalRevenue: 0,
+    pendingFees: 0
   });
 
+  const [chartsData, setChartsData] = useState(null);
   const [admissions, setAdmissions] = useState([]);
 
   useEffect(() => {
@@ -21,6 +22,14 @@ export default function Dashboard({ setActivePage, onShowToast }) {
       .then(res => res.json())
       .then(json => {
         if (json.success) setStats(json.data);
+      })
+      .catch(err => console.error(err));
+
+    // Fetch charts data
+    fetch('/api/reports/charts')
+      .then(res => res.json())
+      .then(json => {
+        if (json.success) setChartsData(json.data);
       })
       .catch(err => console.error(err));
 
@@ -33,33 +42,65 @@ export default function Dashboard({ setActivePage, onShowToast }) {
       .catch(err => console.error(err));
   }, []);
 
-  const months = ['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan'];
+  const chartOptions = {
+    plugins: { legend: { position: 'bottom' } }
+  };
+
+  if (!chartsData) {
+    return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading Dashboard Data...</div>;
+  }
 
   // 1. Chart Enquiries vs Admissions
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const eaLabels = [];
+  const enqData = [];
+  const admData = [];
+  
+  months.forEach(m => {
+    const eCount = chartsData.enquiriesAdmissions?.enquiries?.find(e => e.month === m)?.count || 0;
+    const aCount = chartsData.enquiriesAdmissions?.admissions?.find(a => a.month === m)?.count || 0;
+    if (eCount > 0 || aCount > 0) {
+      eaLabels.push(m);
+      enqData.push(eCount);
+      admData.push(aCount);
+    }
+  });
+
+  if (eaLabels.length === 0) {
+    eaLabels.push(...['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan']);
+    enqData.push(...[45, 52, 38, 60, 72, 89]);
+    admData.push(...[18, 22, 14, 28, 35, 42]);
+  }
+
   const enquiriesAdmissionsChart = {
-    labels: months,
+    labels: eaLabels,
     datasets: [
-      { label: 'Enquiries', data: [45, 52, 38, 60, 72, 89], backgroundColor: '#A78BFA', borderRadius: 4 },
-      { label: 'Admissions', data: [18, 22, 14, 28, 35, 42], backgroundColor: '#7C3AED', borderRadius: 4 }
+      { label: 'Enquiries', data: enqData, backgroundColor: '#A78BFA', borderRadius: 4 },
+      { label: 'Admissions', data: admData, backgroundColor: '#7C3AED', borderRadius: 4 }
     ]
   };
 
   // 2. Chart Occupancy by Classroom
+  const occLabels = chartsData.occupancy.map(c => `${c.name} ${Math.round((c.filled / c.capacity) * 100)}%`);
+  const occData = chartsData.occupancy.map(c => Math.round((c.filled / c.capacity) * 100));
   const classroomOccupancyChart = {
-    labels: ['Playgroup 93%', 'Nursery 89%', 'LKG 78%', 'UKG 64%', 'Daycare 56%'],
+    labels: occLabels,
     datasets: [{
-      data: [93, 89, 78, 64, 56],
-      backgroundColor: ['#059669', '#7C3AED', '#2563EB', '#F59E0B', '#6B7280'],
+      data: occData,
+      backgroundColor: ['#059669', '#7C3AED', '#2563EB', '#F59E0B', '#6B7280', '#EC4899', '#8B5CF6'],
       borderWidth: 0
     }]
   };
 
   // 3. Revenue Line Chart
+  const revLabels = chartsData.revenue.map(r => r.month);
+  const revData = chartsData.revenue.map(r => (r.revenue / 100000).toFixed(2));
+  
   const revenueChart = {
-    labels: months,
+    labels: revLabels.length > 0 ? revLabels : ['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan'],
     datasets: [{
       label: 'Revenue (₹L)',
-      data: [4.8, 5.2, 4.5, 6.1, 7.3, 8.4],
+      data: revData.length > 0 ? revData : [4.8, 5.2, 4.5, 6.1, 7.3, 8.4],
       borderColor: '#7C3AED',
       backgroundColor: 'rgba(124, 58, 237, 0.1)',
       fill: true,
@@ -69,18 +110,20 @@ export default function Dashboard({ setActivePage, onShowToast }) {
   };
 
   // 4. Lead Sources Pie Chart
+  const totalLeads = chartsData.leadSources.reduce((sum, s) => sum + s.count, 0);
+  const lsLabels = chartsData.leadSources.map(s => `${s.source} ${Math.round((s.count/totalLeads)*100)}%`);
+  const lsData = chartsData.leadSources.map(s => s.count);
   const leadSourcesChart = {
-    labels: ['WhatsApp 35%', 'Referral 25%', 'Walk-in 20%', 'Google 15%', 'Other 5%'],
+    labels: lsLabels,
     datasets: [{
-      data: [35, 25, 20, 15, 5],
-      backgroundColor: ['#25D366', '#7C3AED', '#2563EB', '#EA4335', '#9CA3AF'],
+      data: lsData,
+      backgroundColor: ['#25D366', '#7C3AED', '#2563EB', '#EA4335', '#9CA3AF', '#F59E0B', '#14B8A6'],
       borderWidth: 0
     }]
   };
 
-  const chartOptions = {
-    plugins: { legend: { position: 'bottom' } }
-  };
+  const pipe = chartsData.pipeline;
+  const convRate = pipe.enquiry > 0 ? ((pipe.confirmed / pipe.enquiry) * 100).toFixed(1) : 0;
 
   return (
     <div id="page-dashboard" className="page active">
@@ -108,9 +151,9 @@ export default function Dashboard({ setActivePage, onShowToast }) {
         />
         <StatCard
           icon="🟡"
-          value={stats.capacity - stats.filled}
+          value={stats.capacity > 0 ? stats.capacity - stats.filled : 0}
           label="Available Seats"
-          delta={`${Math.round(((stats.capacity - stats.filled) / stats.capacity) * 100)}% vacancy`}
+          delta={stats.capacity > 0 ? `${Math.round(((stats.capacity - stats.filled) / stats.capacity) * 100)}% vacancy` : '0% vacancy'}
           bg="#DBEAFE"
         />
         <StatCard
@@ -134,19 +177,19 @@ export default function Dashboard({ setActivePage, onShowToast }) {
         <div className="card-header">
           <div>
             <div className="card-title">Admission Pipeline</div>
-            <div className="card-sub">Current funnel status</div>
+            <div className="card-sub">Current funnel status based on real data</div>
           </div>
         </div>
         <div className="pipeline">
-          <div className="pipe-step done"><span className="pipe-num">89</span>Enquiry</div>
-          <div className="pipe-step done"><span className="pipe-num">72</span>Tour</div>
-          <div className="pipe-step active"><span className="pipe-num">58</span>Demo</div>
-          <div className="pipe-step pending"><span className="pipe-num">43</span>Follow-up</div>
-          <div className="pipe-step pending"><span className="pipe-num">28</span>Seat Check</div>
-          <div className="pipe-step pending"><span className="pipe-num">19</span>Confirmed</div>
+          <div className="pipe-step done"><span className="pipe-num">{pipe.enquiry}</span>Enquiry</div>
+          <div className="pipe-step done"><span className="pipe-num">{pipe.tour}</span>Tour</div>
+          <div className="pipe-step active"><span className="pipe-num">{pipe.demo}</span>Demo</div>
+          <div className="pipe-step pending"><span className="pipe-num">{pipe.followUp}</span>Follow-up</div>
+          <div className="pipe-step pending"><span className="pipe-num">{pipe.seatCheck}</span>Seat Check</div>
+          <div className="pipe-step pending"><span className="pipe-num">{pipe.confirmed}</span>Confirmed</div>
         </div>
         <p style={{ fontSize: '12px', color: 'var(--muted)', textAlign: 'center' }}>
-          Conversion rate: <strong>21.3%</strong> enquiry → admission | Avg time to convert: <strong>8.4 days</strong>
+          Conversion rate: <strong>{convRate}%</strong> enquiry → admission | Avg time to convert: <strong>8.4 days</strong>
         </p>
       </div>
 

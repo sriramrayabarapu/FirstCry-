@@ -21,13 +21,21 @@ class ReportController {
       const counsellorPerf = await ReportsModel.getCounsellorPerformance();
       const leadSources = await ReportsModel.getLeadSources();
       const feedbackStats = await ReportsModel.getFeedbackAnalytics();
+      const pipeline = await ReportsModel.getPipelineStats();
+      const occupancy = await ReportsModel.getOccupancyChart();
+      const revenue = await ReportsModel.getRevenueTrend();
+      const enquiriesAdmissions = await ReportsModel.getEnquiriesAdmissionsTrend();
 
       res.json({
         success: true,
         data: {
           counsellorPerformance: counsellorPerf,
           leadSources: leadSources,
-          feedbackStats: feedbackStats
+          feedbackStats: feedbackStats,
+          pipeline: pipeline,
+          occupancy: occupancy,
+          revenue: revenue,
+          enquiriesAdmissions: enquiriesAdmissions
         }
       });
     } catch (err) {
