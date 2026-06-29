@@ -216,11 +216,7 @@ export default function App() {
         {renderActivePage()}
       </main>
 
-      {/* FLOATING ACTION BUTTONS */}
-      <div className="float-btns">
-        <button className="float-btn float-call" onClick={() => triggerToast('📞 Initiating call with Centre Admin...')} title="Call">📞</button>
-        <button className="float-btn float-wa" onClick={() => triggerToast('💬 Redirecting to WhatsApp live chat...')} title="WhatsApp">💬</button>
-      </div>
+
 
       {/* DELAYED TRIAL ADMISSION POPUP */}
       {portalMode === 'public' && <Popup onShowToast={triggerToast} />}
