@@ -12,7 +12,6 @@ import AboutUs from './pages/AboutUs';
 import Dashboard from './pages/Dashboard';
 import Occupancy from './pages/Occupancy';
 import Enquiry from './pages/Enquiry';
-import Counsellor from './pages/Counsellor';
 import Tour from './pages/Tour';
 import Prebook from './pages/Prebook';
 import Teachers from './pages/Teachers';
@@ -158,8 +157,6 @@ export default function App() {
         return <Occupancy onShowToast={triggerToast} />;
       case 'enquiry':
         return <Enquiry onShowToast={triggerToast} />;
-      case 'counsellor':
-        return <Counsellor onShowToast={triggerToast} />;
       case 'tour':
         return <Tour onShowToast={triggerToast} />;
       case 'prebook':

@@ -178,9 +178,6 @@ export default function Dashboard({ setActivePage, onShowToast }) {
       <div className="card">
         <div className="card-header">
           <div><div className="card-title">Recent Confirmed Admissions</div></div>
-          <button className="btn btn-outline btn-sm" onClick={() => setActivePage('counsellor')}>
-            View All →
-          </button>
         </div>
         <table className="data-table">
           <thead>

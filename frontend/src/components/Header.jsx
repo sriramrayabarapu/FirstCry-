@@ -6,7 +6,6 @@ const pageTitles = {
   dashboard: { title: 'Admission Dashboard', sub: 'Real-time overview of admissions, occupancy, and revenue performance' },
   occupancy: { title: 'Occupancy Management', sub: 'Track classroom capacity, availability, and waitlists in real-time' },
   enquiry: { title: 'Parent Enquiry Form', sub: 'Submit a new admission enquiry. All fields will be saved to the database.' },
-  counsellor: { title: 'Counsellor Dashboard', sub: 'Manage leads, follow-ups, and track conversion performance' },
   tour: { title: 'Tour Booking Calendar', sub: 'Schedule and manage school visit tours for prospective families' },
   teachers: { title: 'Teacher Dashboard', sub: 'Manage teacher records, attendance, and classroom activities' },
   parents: { title: 'Parent Portal', sub: "Track your child's progress, attendance, and school communications" },

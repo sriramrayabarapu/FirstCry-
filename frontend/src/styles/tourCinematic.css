@@ -442,6 +442,7 @@
 @keyframes btnClickAnimate {
   0% {
     transform: scale(1);
+    box-shadow: 0 0 0 rgba(139, 92, 246, 0);
   }
 
   30% {
@@ -455,6 +456,7 @@
 
   100% {
     transform: scale(1);
+    box-shadow: 0 0 0 rgba(139, 92, 246, 0);
   }
 }
 
