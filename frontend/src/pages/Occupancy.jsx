@@ -4,24 +4,12 @@ import { occupancyAPI } from '../services/occupancyAPI';
 
 export default function Occupancy({ onShowToast }) {
   const [classrooms, setClassrooms] = useState([]);
-  const [qrCodes, setQrCodes] = useState({});
 
   const loadData = () => {
     occupancyAPI.getOccupancy()
       .then(json => {
         if (json.success) {
           setClassrooms(json.data);
-          // Generate QR code base64 for each classroom
-          json.data.forEach(async (cls) => {
-            try {
-              const res = await occupancyAPI.getClassroomQR(cls.name);
-              if (res.success) {
-                setQrCodes(prev => ({ ...prev, [cls.name]: res.data }));
-              }
-            } catch (err) {
-              console.error('QR code fetch failed:', err);
-            }
-          });
         }
       })
       .catch(err => console.error(err));
@@ -111,40 +99,7 @@ export default function Occupancy({ onShowToast }) {
         </div>
       </div>
 
-      {/* QR GRID */}
-      <div className="card">
-        <div className="card-header">
-          <div>
-            <div className="card-title">QR Codes — Classroom Occupancy</div>
-            <div className="card-sub">Print and paste at classroom entrance</div>
-          </div>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(140px,1fr))', gap: '1rem' }} id="qr-grid">
-          {classrooms.map((c, idx) => {
-            const pct = Math.round((c.filled / c.capacity) * 100);
-            const color = pct >= 90 ? '#DC2626' : pct >= 70 ? '#D97706' : '#059669';
-            return (
-              <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '12px', padding: '1rem', textAlign: 'center' }} key={idx}>
-                <div style={{ fontSize: '1.5rem' }}>{c.emoji}</div>
-                <div style={{ fontSize: '13px', fontWeight: '600', margin: '.25rem 0' }}>{c.name}</div>
-                {qrCodes[c.name] ? (
-                  <img src={qrCodes[c.name]} alt="QR code" style={{ width: '70px', height: '70px', display: 'block', margin: '.5rem auto' }} />
-                ) : (
-                  <div style={{ width: '70px', height: '70px', margin: '.5rem auto', background: '#F3F4F6', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', color: 'var(--muted)' }}>QR CODE</div>
-                )}
-                <div style={{ fontSize: '12px', fontWeight: '700', color: color }}>{pct}% Full</div>
-                <button
-                  className="btn btn-outline btn-sm"
-                  style={{ marginTop: '.5rem', width: '100%' }}
-                  onClick={() => onShowToast(`🖨️ Printing QR check-in sign for ${c.name}...`)}
-                >
-                  Print
-                </button>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+
     </div>
   );
 }
