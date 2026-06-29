@@ -223,7 +223,7 @@ export default function App() {
       </div>
 
       {/* DELAYED TRIAL ADMISSION POPUP */}
-      <Popup onShowToast={triggerToast} />
+      {portalMode === 'public' && <Popup onShowToast={triggerToast} />}
 
       {/* LOGIN MODAL */}
       <LoginModal
