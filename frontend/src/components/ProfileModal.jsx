@@ -81,13 +81,7 @@ export default function ProfileModal({ open, onClose, user, portalMode }) {
 
           {/* Action Buttons */}
           <div className="pm-actions">
-            <button
-              className="pm-btn-edit"
-              style={{ background: gradient }}
-              onClick={onClose}
-            >
-              ✏️ Edit Profile
-            </button>
+
             <button className="pm-btn-close" onClick={onClose}>
               Close
             </button>
