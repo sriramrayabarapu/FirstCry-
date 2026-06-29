@@ -7,8 +7,7 @@ const adminNavItems = [
   ]},
   { section: 'Admissions', items: [
     { id: 'enquiry', label: 'Enquiry Form', icon: '📝' },
-    { id: 'tour', label: 'Tour Booking', icon: '📅' },
-    { id: 'prebook', label: 'Pre-booking', icon: '🎫' }
+    { id: 'tour', label: 'Tour Booking', icon: '📅' }
   ]},
   { section: 'Operations', items: [
     { id: 'teachers', label: 'Teachers', icon: '👩‍🏫' },
