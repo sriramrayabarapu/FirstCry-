@@ -35,13 +35,6 @@ export default function Teachers({ onShowToast }) {
             <div style={{ marginTop: '.5rem', color: '#F59E0B', fontSize: '12px' }}>
               ★ {t.rating}
             </div>
-            <button
-              className="btn btn-outline btn-sm"
-              style={{ marginTop: '.75rem', width: '100%' }}
-              onClick={() => onShowToast(`👩‍🏫 Viewing profile for ${t.name}`)}
-            >
-              View Profile
-            </button>
           </div>
         ))}
       </div>
