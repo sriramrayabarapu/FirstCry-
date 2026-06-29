@@ -4,6 +4,7 @@
   "description": "Root workspace to start FirstCry Intellitots backend and frontend concurrently.",
   "scripts": {
     "start": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "build": "npm --prefix frontend run build",
     "backend": "npm --prefix backend start",
     "frontend": "npm run --prefix frontend dev"
   },
