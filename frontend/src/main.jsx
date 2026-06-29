@@ -12,13 +12,6 @@ window.fetch = function (url, options) {
   if (typeof url === 'string' && url.startsWith('/api')) {
     const baseUrl = import.meta.env.VITE_API_URL || '';
     url = `${baseUrl}${url}`;
-    
-    // Add bypass header for localtunnel
-    options = options || {};
-    options.headers = {
-      ...options.headers,
-      'Bypass-Tunnel-Reminder': 'true'
-    };
   }
   return originalFetch(url, options);
 };
