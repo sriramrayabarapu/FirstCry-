@@ -4,6 +4,7 @@ const EnquiryController = require('../controllers/enquiryController');
 
 router.get('/', EnquiryController.getAllEnquiries);
 router.post('/', EnquiryController.createEnquiry);
+router.put('/:id/status', EnquiryController.updateEnquiryStatus);
 
 // Counsellor leads endpoints
 router.get('/leads', EnquiryController.getAllLeads);

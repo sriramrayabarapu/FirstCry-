@@ -63,6 +63,21 @@ class EnquiryController {
     }
   }
 
+  static async updateEnquiryStatus(req, res, next) {
+    try {
+      const { id } = req.params;
+      const { status } = req.body;
+      if (!status) {
+        return res.status(400).json({ success: false, message: 'Status is required' });
+      }
+
+      await EnquiryModel.updateStatus(id, status);
+      res.json({ success: true, message: `Enquiry status updated to ${status}` });
+    } catch (err) {
+      next(err);
+    }
+  }
+
   // Counsellor leads listing
   static async getAllLeads(req, res, next) {
     try {

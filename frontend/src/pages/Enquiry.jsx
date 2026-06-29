@@ -12,19 +12,7 @@ export default function Enquiry({ onShowToast }) {
   const [source, setSource] = useState('Walk-in');
   const [notes, setNotes] = useState('');
 
-  const [enquiries, setEnquiries] = useState([]);
 
-  const loadEnquiries = () => {
-    enquiryAPI.getEnquiries()
-      .then(json => {
-        if (json.success) setEnquiries(json.data);
-      })
-      .catch(err => console.error(err));
-  };
-
-  useEffect(() => {
-    loadEnquiries();
-  }, []);
 
   const handleClear = () => {
     setParentName('');
@@ -60,7 +48,6 @@ export default function Enquiry({ onShowToast }) {
       if (res.success) {
         onShowToast(`✅ Enquiry captured! WhatsApp confirmation dispatched to ${phone}`);
         handleClear();
-        loadEnquiries();
       }
     } catch (e) {
       onShowToast('❌ Failed to record enquiry: ' + e.message);
@@ -141,41 +128,7 @@ export default function Enquiry({ onShowToast }) {
         </div>
       </div>
 
-      <div className="card" style={{ marginTop: '1.5rem' }}>
-        <div className="card-header">
-          <div className="card-title">Submitted Enquiries</div>
-        </div>
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Parent</th>
-              <th>Child</th>
-              <th>Program</th>
-              <th>Phone</th>
-              <th>Source</th>
-              <th>Status</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {enquiries.map((r, idx) => (
-              <tr key={idx}>
-                <td><strong>{r.parent}</strong></td>
-                <td>{r.child}</td>
-                <td><span className="badge badge-purple">{r.program}</span></td>
-                <td>{r.phone || '—'}</td>
-                <td>{r.source || '—'}</td>
-                <td>
-                  <span className={`badge ${r.status === 'Confirmed' ? 'badge-success' : r.status === 'New' ? 'badge-info' : 'badge-warning'}`}>
-                    {r.status}
-                  </span>
-                </td>
-                <td style={{ color: 'var(--muted)', fontSize: '12px' }}>{r.date}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+
     </div>
   );
 }
